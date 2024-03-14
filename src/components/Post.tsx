@@ -1,14 +1,14 @@
 import styles from "./Post.module.css"
 import {Comment} from "./Comment.tsx";
+import {Avatar} from "./Avatares.tsx";
+
 
 export function Post() {
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <img
-                        className={styles.avatar}
-                        src="https://avatars.githubusercontent.com/u/106832134?v=4" alt=""/>
+                    <Avatar  src="https://github.com/diego3g.png"/>
                     <div className={styles.authorInfo}>
                         <strong>Pedro Marques</strong>
                         <span>Web Developer</span>
