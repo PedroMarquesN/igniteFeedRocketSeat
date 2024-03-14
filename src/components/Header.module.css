@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    justify-content: center;
+    background: var(--gray-800);
+    padding: 1.25rem 0;
+
+
+}
+.divContainer {
+    display: flex;
+}
+
+.header img {
+    height: 2rem;
+}
+
+h1 {
+    margin-left: 1rem;
+    font-size: 1.35rem;
+
+}
