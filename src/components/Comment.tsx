@@ -1,9 +1,14 @@
 import styles from "./Comment.module.css"
 import {ThumbsUp, Trash} from "@phosphor-icons/react";
 import {Avatar} from "./Avatares.tsx";
+import {useState} from "react";
 
 export function Comment({content, onDeleteComment}) {
+    const [aplauso, setAplauso] = useState(0)
 
+    function addAplauso() {
+        setAplauso(aplauso + 1)
+    }
     function deletarComentario() {
         onDeleteComment(content)
     }
@@ -31,9 +36,9 @@ export function Comment({content, onDeleteComment}) {
                 </div>
 
                 <footer>
-                    <button>
+                    <button onClick={addAplauso}>
                         <ThumbsUp />
-                        Aplaudir <span>20</span>
+                        Aplaudir <span>{aplauso}</span>
                     </button>
                 </footer>
             </div>

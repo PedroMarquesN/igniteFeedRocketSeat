@@ -16,12 +16,17 @@ export function Post(props) {
     }
 
     function handleNewCommentChange() {
+        event.target.setCustomValidity('')
         setNewComment(event.target.value)
+    }
+    function adicionandoWarning() {
+        event.target.setCustomValidity('Este campo é obrigatório')
+
     }
 
     function onDeleteComment(commentToDelete) {
         const comentarioParaDeletar = comments.filter(comment =>{
-            comment !== commentToDelete
+            return comment !== commentToDelete
         })
         setComments(comentarioParaDeletar)
     }
@@ -59,11 +64,13 @@ export function Post(props) {
                     name="comment"
                     placeholder="Deixe um comentario"
                     value={newComment}
+                    onInvalid={adicionandoWarning}
+                    required
 
                 />
 
                 <footer>
-                    <button type="submit">Comentar</button>
+                    <button type="submit" disabled={newComment.length === 0}>Comentar</button>
                 </footer>
 
             </form>
