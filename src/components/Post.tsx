@@ -19,6 +19,10 @@ export function Post(props) {
         setNewComment(event.target.value)
     }
 
+    function onDeleteComment(comment) {
+        console.log(`Deletar Comentário ${comment}`)
+    }
+
     return (
         <article className={styles.post}>
             <header>
@@ -63,7 +67,7 @@ export function Post(props) {
 
             <div className={styles.commentList}>
                 {comments.map((comment,index) => {
-                    return <Comment key={index} content={comment} />
+                    return <Comment onDeleteComment={onDeleteComment} key={index} content={comment} />
                 })}
             </div>
         </article>
