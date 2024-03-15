@@ -7,7 +7,9 @@ export function Comment({content, onDeleteComment}) {
     const [aplauso, setAplauso] = useState(0)
 
     function addAplauso() {
-        setAplauso(aplauso + 1)
+        setAplauso((value) => {
+            return value + 1
+        })
     }
     function deletarComentario() {
         onDeleteComment(content)
