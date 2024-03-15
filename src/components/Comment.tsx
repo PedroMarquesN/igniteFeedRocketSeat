@@ -3,7 +3,12 @@ import {ThumbsUp, Trash} from "@phosphor-icons/react";
 import {Avatar} from "./Avatares.tsx";
 import {useState} from "react";
 
-export function Comment({content, onDeleteComment}) {
+interface CommentProps {
+    content: string
+    onDeleteComment: (comment:string) => void
+}
+
+export function Comment({content, onDeleteComment}:CommentProps) {
     const [aplauso, setAplauso] = useState(0)
 
     function addAplauso() {

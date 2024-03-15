@@ -1,30 +1,46 @@
 import styles from "./Post.module.css"
 import {Comment} from "./Comment.tsx";
 import {Avatar} from "./Avatares.tsx";
-import {useState} from "react";
+import {ChangeEvent, FormEvent, InvalidEvent, useState} from "react";
 
+interface Content {
+    type: 'paragraph' | 'link'
+    content:string
+}
+interface PostProps {
+    author: {
+        name: string
+        role: string
+        avatarUrl: string
+    }
+    publishedAt: Date
+    content: Content[]
+}
 
-export function Post(props) {
+export function Post({author, publishedAt, content}:PostProps) {
     const [comments, setComments] = useState(['Post Bacana Ein?'])
     const [newComment, setNewComment] = useState('')
-    
+    author
+    publishedAt
+    content
 
-    function handleClick() {
+    function handleClick(event:FormEvent) {
         event.preventDefault()
         setComments([...comments, newComment])
         setNewComment('')
     }
 
-    function handleNewCommentChange() {
+
+    function handleNewCommentChange(event:ChangeEvent<HTMLTextAreaElement>) {
         event.target.setCustomValidity('')
         setNewComment(event.target.value)
     }
-    function adicionandoWarning() {
+    function adicionandoWarning(event:InvalidEvent<HTMLTextAreaElement>) {
         event.target.setCustomValidity('Este campo é obrigatório')
 
     }
 
-    function onDeleteComment(commentToDelete) {
+    function onDeleteComment(commentToDelete:string) {
         const comentarioParaDeletar = comments.filter(comment =>{
             return comment !== commentToDelete
         })
@@ -37,8 +53,8 @@ export function Post(props) {
                 <div className={styles.author}>
                     <Avatar  src="https://github.com/diego3g.png"/>
                     <div className={styles.authorInfo}>
-                        <strong>{props.author.name}</strong>
-                        <span>{props.author.role}</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
                 <time
@@ -47,7 +63,7 @@ export function Post(props) {
                 >Publicado há 1h</time>
             </header>
             <div className={styles.content}>
-                {props.content.map((line, index) => {
+                {content.map((line, index) => {
                     if (line.type === 'paragraph'){
                         return <p key={index}>{line.content}</p>
                     }else if (line.type ==='link') {
