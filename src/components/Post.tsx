@@ -19,8 +19,11 @@ export function Post(props) {
         setNewComment(event.target.value)
     }
 
-    function onDeleteComment(comment) {
-        console.log(`Deletar Comentário ${comment}`)
+    function onDeleteComment(commentToDelete) {
+        const comentarioParaDeletar = comments.filter(comment =>{
+            comment !== commentToDelete
+        })
+        setComments(comentarioParaDeletar)
     }
 
     return (
