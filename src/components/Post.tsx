@@ -4,7 +4,7 @@ import {Avatar} from "./Avatares.tsx";
 import {ChangeEvent, FormEvent, InvalidEvent, useState} from "react";
 
 interface Content {
-    type: 'paragraph' | 'link'
+    type: string
     content:string
 }
 interface PostProps {
