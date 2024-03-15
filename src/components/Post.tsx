@@ -1,17 +1,32 @@
 import styles from "./Post.module.css"
 import {Comment} from "./Comment.tsx";
 import {Avatar} from "./Avatares.tsx";
+import {useState} from "react";
 
 
-export function Post() {
+export function Post(props) {
+    const [comments, setComments] = useState(['Post Bacana Ein?'])
+    const [newComment, setNewComment] = useState('')
+    
+
+    function handleClick() {
+        event.preventDefault()
+        setComments([...comments, newComment])
+        setNewComment('')
+    }
+
+    function handleNewCommentChange() {
+        setNewComment(event.target.value)
+    }
+
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
                     <Avatar  src="https://github.com/diego3g.png"/>
                     <div className={styles.authorInfo}>
-                        <strong>Pedro Marques</strong>
-                        <span>Web Developer</span>
+                        <strong>{props.author.name}</strong>
+                        <span>{props.author.role}</span>
                     </div>
                 </div>
                 <time
@@ -20,20 +35,26 @@ export function Post() {
                 >Publicado há 1h</time>
             </header>
             <div className={styles.content}>
-
-                    <p> Fala galeraa 👋</p>
-
-                    <p> Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-
-                    <p> 👉{' '}<a href="#"> jane.design/doctorcare</a></p>
-
-                    <p> <a href="#"> #novoprojeto #nlw #rocketseat</a> </p>
+                {props.content.map((line, index) => {
+                    if (line.type === 'paragraph'){
+                        return <p key={index}>{line.content}</p>
+                    }else if (line.type ==='link') {
+                        return <p key={index}> <a href="#">{line.content}</a></p>
+                    }
+                })}
             </div>
 
-            <form className={styles.commentForm}>
+            <form onSubmit={handleClick} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
-                <textarea placeholder="Deixe um comentario" />
+                <textarea
+                    onChange={handleNewCommentChange}
+                    name="comment"
+                    placeholder="Deixe um comentario"
+                    value={newComment}
+
+                />
+
                 <footer>
                     <button type="submit">Comentar</button>
                 </footer>
@@ -41,9 +62,9 @@ export function Post() {
             </form>
 
             <div className={styles.commentList}>
-                <Comment />
-                <Comment />
-                <Comment />
+                {comments.map((comment,index) => {
+                    return <Comment key={index} content={comment} />
+                })}
             </div>
         </article>
     )
